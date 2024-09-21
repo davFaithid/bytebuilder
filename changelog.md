@@ -104,6 +104,6 @@ success ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb 1 41
 
 Still only have sha256 implemented, but from this point it's only a matter of time before I implement other hashes.
 
-Should also note that for obvious reasons generating files from a hash is going to still take forever but this reduces the time overall for bigger files by eliminating duplicates.
+Should also note that for obvious reasons generating large files from a hash is going to still take forever but this reduces the time overall for bigger files by eliminating duplicates.
 
 Working on SeedSprout (``ss.py``) which is dedicated to creating a file from a seed, working out some kinks some right now (the seed produced by bb.py is different than what ss.py uses, 0 on SeedSprout is 16 on ByteBuilder and 1 on SeedSprout is 293 and 2 is 209, really wish I knew why it's doing that)
