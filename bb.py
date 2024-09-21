@@ -1,27 +1,34 @@
+# ByteBuilder: reconstructing files from a cryptographic hash
+# Author: davFaithid
+# Version 2
+
 from io import BytesIO
 import os, sys
 
-#Other ideas:
 from random import randbytes
-
-#import secrets
-#b"\x00" + secrets.token_bytes(4) + b"\x00"
-
-#bytearray(random.getrandbits(8) for _ in xrange(size))
-
-#set up args; bb.py hash filesize
+xrange = range
 
 if (len(sys.argv) < 3):
     print("too few args, try again")
     sys.exit()
 
-target = sys.argv[1]
+seed = 0
 maxsize = sys.argv[2]
+target = sys.argv[1]
 
 print(target,'\n')
 print(maxsize,'\n')
   
 import hashlib
+import random
+
+gl = 0
+def randBytes(size, seed):
+    random.seed(seed)
+    global gl
+    nr = bytearray(random.getrandbits(8) for _ in xrange(size))
+    gl = nr
+    return nr
 
 def sha256sum(filename):
     h  = hashlib.sha256()
@@ -32,13 +39,13 @@ def sha256sum(filename):
             h.update(mv[:n])
     return h.hexdigest()
 
-def writeout():
+def writeout(seed):
     try: 
-        write_byte = BytesIO(randbytes(int(maxsize)))
+        write_byte = randBytes(int(maxsize),seed)
         with open("test.bin", "wb") as f:
                     # max file size in bytes
             while (os.stat("test.bin").st_size < int(maxsize)):
-                f.write(write_byte.getbuffer())
+                f.write(write_byte)
                 if f.tell() == int(maxsize):    # f.tell() gives byte offset, no need to worry about multiwide chars
                     break
 #                   sys.exit()
@@ -50,10 +57,11 @@ def writeout():
         print("pausing for cooldown")
         time.sleep(5)
 
-while (str(writeout()) != str(target)):
-    print("failure", sha256sum("test.bin"), os.stat("test.bin").st_size)
-    writeout()
+while (str(writeout(seed)) != str(target)):
+    print("failure", sha256sum("test.bin"), os.stat("test.bin").st_size,seed)
+    seed += 1
+    writeout(seed)
     if (sha256sum("test.bin") == target):
-        print("success")
+        print("success", sha256sum("test.bin"), os.stat("test.bin").st_size,seed)
         break
         sys.exit()
