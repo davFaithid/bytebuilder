@@ -1,10 +1,4 @@
-# ByteBuilder
-
-This is a project I have dreamed about for years, and I hope to see it to completion.
-
-I seek to bruteforce solve sha hashes so that files that may have once been lost can one day be recovered.
-
-Similar to other bruteforce tools, this will take a long time to replicate a file, especially since I just have it randomize every byte instead of sort of sensible algorithm.
+# Changelog
 
 ## First breakthrough
 
