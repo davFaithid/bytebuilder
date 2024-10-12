@@ -1,6 +1,6 @@
 # SeedSprout: reconstructing files from a ByteBuilder seed
 # Author: davFaithid
-# Version 0, currently intakes different seeds than ByteBuilder uses need to fix
+# Version 1
 
 from io import BytesIO
 import os, sys
@@ -13,7 +13,7 @@ if (len(sys.argv) < 3):
     sys.exit()
 
 maxsize = sys.argv[2]
-seed = sys.argv[1]
+seed = int(sys.argv[1])
 
 print(seed,'\n')
 print(maxsize,'\n')
