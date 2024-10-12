@@ -17,11 +17,11 @@ Currently the following arguments must be present first before the file size and
 ```
 arguments:
   -bb, --bytebuilder
-                        Build file from hash using ByteBuilder: -bb sha256 -fs filesize -o filename
+	Build file from hash using ByteBuilder: -bb sha256 -fs filesize -o filename
   -ss, --seedsprout
-                        Build file from seed using SeedSprout: -ss seed -fs filesize -o filename
+	Build file from seed using SeedSprout: -ss seed -fs filesize -o filename
   -i, --infile    
-						Build file from SeedSprout container file: -i filename
+	Build file from SeedSprout container file: -i filename
 ```
 
 ### Examples
