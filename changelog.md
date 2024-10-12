@@ -132,8 +132,8 @@ I created a Python script that can generate a file from a container with the has
 Format:  ``ss#!/sha256/size/seed/filename``
 Example: ``ss#!/ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb/1/41/its the letter a.txt``
 
-After that I decided to combine all three into one script and just switch between the three through flags in the arguments. Easily implementation.
+After that I decided to combine all three into one script and just switch between the three through flags in the arguments. Easy implementation.
 
 Now that it's all in one file, ``-bb`` invokes ByteBuilder, ``-ss`` invokes SeedSprout, and ``-i`` inputs a container file. I can probably make this even simpler by making a GUI.
 
-Oh also now file size and file name are arguments called by flags, so don't forget the flags when using it. (``-fs`` filesize, ``-o filename``)
+Oh also now file size and file name are arguments called by flags, so don't forget the flags when using it. (``-fs`` filesize, ``-o`` filename)
