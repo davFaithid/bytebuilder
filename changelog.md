@@ -124,3 +124,16 @@ ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb
 My next idea to implement is file headers and whatever the equivalent is for the ending of a file (file footers?) for ByteBuilder, that way certain file types will generate faster. 
 
 Maybe I'll even make a file container for SeedSprout with a seed, a hash, and a file size for easy sharing of files for the command-line averse. 
+
+## Combining
+
+I created a Python script that can generate a file from a container with the hash of the file to verify the file, the size of the file, the seed that SeedSprout will use, and the file name.
+
+Format:  ``ss#!/sha256/size/seed/filename``
+Example: ``ss#!/ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb/1/41/its the letter a.txt``
+
+After that I decided to combine all three into one script and just switch between the three through flags in the arguments. Easily implementation.
+
+Now that it's all in one file, ``-bb`` invokes ByteBuilder, ``-ss`` invokes SeedSprout, and ``-i`` inputs a container file. I can probably make this even simpler by making a GUI.
+
+Oh also now file size and file name are arguments called by flags, so don't forget the flags when using it. (``-fs`` filesize, ``-o filename``)
