@@ -17,11 +17,13 @@ Currently the following arguments must be present first before the file size and
 ```
 arguments:
   -bb, --bytebuilder
-	Build file from hash using ByteBuilder: -bb sha256 -fs filesize -o filename
+		Build file from hash using ByteBuilder: -bb sha256 -fs filesize -o filename
   -ss, --seedsprout
-	Build file from seed using SeedSprout: -ss seed -fs filesize -o filename
-  -i, --infile    
-	Build file from SeedSprout container file: -i filename
+    	Build file from seed using SeedSprout: -ss seed -fs filesize -o filename
+  -i, --infile      
+    	Build file from SeedSprout container file: -i filename
+  -a                 
+    	Prints hash and file size, perfect for batch commands for folders
 ```
 
 ### Examples
@@ -111,5 +113,5 @@ success ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb
 ## To-do
 
 - [ ] Build a GUI
-- [ ] Implement hashes other than SHA-256
+- [x] Implement hashes other than SHA-256
 - [x] Implement file header/footer writing to accelerate ByteBuilder generation of files of certain file types

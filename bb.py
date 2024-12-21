@@ -16,6 +16,7 @@ parser.add_argument("-bb", "--bytebuilder", dest = "bb", help="Build file from h
 parser.add_argument("-ss", "--seedsprout", dest = "ss",  help="Build file from seed using SeedSprout:     -ss seed -fs filesize -o filename")
 parser.add_argument("-i", "--infile", dest = "i",         help="Build file from SeedSprout container file: -i filename")
 parser.add_argument("-a", dest = "a",         help="Prints hash and file size, perfect for batch commands for folders")
+parser.add_argument("-ht", dest = "ht",         help="Selects hash to be inputted, defaults sha256")
 parser.add_argument("-fs", "--size", dest = "fs")
 parser.add_argument("-o", "--outfile", dest = "o")
 parser.add_argument("-bh", dest = "bh")
@@ -24,7 +25,21 @@ parser.add_argument("-ns", dest = "ns")
 
 args = parser.parse_args()
 
-# Eventually I'm going to add one to state what type of hash ByteBuilder will be using
+felon = "sha256"
+
+def murder():
+    global felon
+    if (args.ht):
+        felon = str(args.ht)
+    else:
+        felon = "sha256"
+    if felon == "sha256":
+        print("\nSHA256 Hash Selected")
+    if felon == "sha1":
+        print("\nSHA1 Hash Selected")
+    if felon == "md5":
+        print("\nMD5 Hash Selected")
+    return felon
 
 import hashlib
 import random
@@ -38,6 +53,7 @@ def randBytes(size, seed):
     return nr
 
 def sha256sum(filename):
+    #print("\nSHA256 Hash Selected\n")
     h  = hashlib.sha256()
     b  = bytearray(128*1024)
     mv = memoryview(b)
@@ -45,6 +61,39 @@ def sha256sum(filename):
         for n in iter(lambda : f.readinto(mv), 0):
             h.update(mv[:n])
     return h.hexdigest()
+
+def sha1sum(filename):
+    #print("\nSHA1 Hash Selected\n")
+    h  = hashlib.sha1()
+    b  = bytearray(128*1024)
+    mv = memoryview(b)
+    with open(filename, 'rb', buffering=0) as f:
+        for n in iter(lambda : f.readinto(mv), 0):
+            h.update(mv[:n])
+    return h.hexdigest()
+
+def md5sum(filename):
+    #print("\nMD5 Hash Selected\n")
+    h  = hashlib.md5()
+    b  = bytearray(128*1024)
+    mv = memoryview(b)
+    with open(filename, 'rb', buffering=0) as f:
+        for n in iter(lambda : f.readinto(mv), 0):
+            h.update(mv[:n])
+    return h.hexdigest()
+
+def hashsum(filename):
+    global felon
+    #print(felon)
+    if felon == "sha256":
+        return sha256sum(filename)
+    if felon == "sha1":
+        return sha1sum(filename)
+    if felon == "md5":
+        return md5sum(filename)
+    else:
+        print("\nInvalid Hash Selected")
+        sys.exit(0)
 
 def writeout(seed,maxsize,filename,startbyte=0):
     try: 
@@ -77,7 +126,7 @@ def writeout(seed,maxsize,filename,startbyte=0):
 #                   sys.exit()
                 f.close()
             
-        return sha256sum(filename)
+        return hashsum(filename)
     except:
         traceback.print_exc()
         import subprocess, time
@@ -95,22 +144,22 @@ def ByteBuilder(target,maxsize,filename,start=0):
     """,'\n')
     seed = 0 + int(start)
     while (str(writeout(seed,maxsize,filename)) != str(target)):
-        print("failure", sha256sum(filename), os.stat(filename).st_size,seed)
+        print("failure", hashsum(filename), os.stat(filename).st_size,seed)
         seed += 1
         writeout(seed,maxsize,filename)
-        if (sha256sum(filename) == target):
-            print("success", sha256sum(filename), os.stat(filename).st_size,seed,'\n')
+        if (hashsum(filename) == target):
+            print("success", hashsum(filename), os.stat(filename).st_size,seed,'\n')
             break
             sys.exit()
      
 def Header(target,seed,header):
     run = True
     while (run == True):
-    #while (str(sha256sum("header")) != str(sha256sum("header2"))):
+    #while (str(hashsum("header")) != str(hashsum("header2"))):
             writeout(seed,int(len(header)/2),"header")
             print("failure",seed,end='\r')
             seed += 1
-            if (str(sha256sum("header")) == str(sha256sum("header2"))):
+            if (str(hashsum("header")) == str(hashsum("header2"))):
                 print("header found at seed", seed,'\n')
                 #print(type(seed))
                 run = False
@@ -137,7 +186,7 @@ def ByteBuilderh(target,maxsize,filename,header,start=0,noseed=False):
                     break
 #                   sys.exit()
             f.close()
-        print(str(sha256sum("header2")))
+        print(str(hashsum("header2")))
         print(int(len(header)/2))
         writeout(seed,int(len(header)/2),"header")
         while (str(writeout(seed,maxsize,filename)) != str(target)):
@@ -151,12 +200,12 @@ def ByteBuilderh(target,maxsize,filename,header,start=0,noseed=False):
                 y=Header(target,seed,header)
                 #print(y)
             print("testing",writeout(seed,maxsize,filename), os.stat(filename).st_size,seed)
-            if (sha256sum(filename) == target):
-                print("success", sha256sum(filename), os.stat(filename).st_size,seed,'\n')
+            if (hashsum(filename) == target):
+                print("success", hashsum(filename), os.stat(filename).st_size,seed,'\n')
                 break
                 sys.exit()
             else:
-                #print("failure", sha256sum(filename), os.stat(filename).st_size,seed,'\n')
+                #print("failure", hashsum(filename), os.stat(filename).st_size,seed,'\n')
                 print("failure",seed)
                 seed += 1
                 #seed=Header(target,seed,header)
@@ -164,19 +213,19 @@ def ByteBuilderh(target,maxsize,filename,header,start=0,noseed=False):
     else:
         while (str(writeout(seed,maxsize,filename)) != str(target)):
             print("testing",writeout(seed,(int(maxsize)-int(len(header)/2)),filename,header), os.stat(filename).st_size,seed)
-            if (sha256sum(filename) == target):
-                print("success", sha256sum(filename), os.stat(filename).st_size,seed,'\n')
+            if (hashsum(filename) == target):
+                print("success", hashsum(filename), os.stat(filename).st_size,seed,'\n')
                 break
                 sys.exit()
             else:
-                #print("failure", sha256sum(filename), os.stat(filename).st_size,seed,'\n')
+                #print("failure", hashsum(filename), os.stat(filename).st_size,seed,'\n')
                 print("failure",seed)
                 seed += 1
                 #seed=Header(target,seed,header)
                 pass
 
 def Analyze(filename):
-    print(sha256sum(filename), os.stat(filename).st_size,'\n')
+    print(hashsum(filename), os.stat(filename).st_size,'\n')
         
 def SeedSprout(seed,maxsize,filename):
     print("""
@@ -186,7 +235,7 @@ def SeedSprout(seed,maxsize,filename):
 # Version 3
 ***************************
 """,'\n')
-    print("SHA256: ",writeout(seed,maxsize,filename),'\n')
+    print(felon.upper()+": ",writeout(seed,maxsize,filename),'\n')
     sys.exit()
     
 def SeedSprouti(infile):
@@ -207,12 +256,13 @@ def SeedSprouti(infile):
     seed = int(fileread[3])
     filename = str(fileread[4])
     #print(target,maxsize,seed)
-    if sha256sum(filename) == target:
-        print("success", sha256sum(filename),'\n')
+    if hashsum(filename) == target:
+        print("success", hashsum(filename),'\n')
     else:
-        print("failure", sha256sum(filename),'\n')    
+        print("failure", hashsum(filename),'\n')    
             
 def main():
+    murder()
     if sys.argv[1] == '-bb':
         #print("bb",args.bb,args.fs,args.o)
         if (args.st):

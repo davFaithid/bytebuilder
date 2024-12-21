@@ -169,3 +169,123 @@ success ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb 1 41
 Hello! It is currently December 21, 2024. I coded in the whole file header and start seed portions pretty much immediately after my last commit (10/12/24) and the last time I touched the code was October 19, 2024. But um yeah, forgot to commit any of that, my bad.
 
 Have not implemented the database thing yet
+
+## Other hashes
+
+SHA-1 and MD5 have been implemented. They work great so far.
+
+```
+py -3 bb.py -bb 0cc175b9c0f1b6a831c399e269772661 -ht md5 -fs 1 -o "its the letter a.txt"
+
+MD5 Hash Selected
+
+***************************
+# ByteBuilder: reconstructing files from a cryptographic hash
+# Author: davFaithid
+# Version 3
+***************************
+
+
+failure 0c78aef83f66abc1fa1e8477f296d394 1 0
+failure b15835f133ff2e27c7cb28117bfae8f4 1 1
+failure 97a6dd4c45b23db9c5d603ce161b8cab 1 2
+failure 524a50782178998021a88b8cd4c8dcd8 1 3
+failure 524a50782178998021a88b8cd4c8dcd8 1 4
+failure dc5eccdcf293db4cfae59a97c28e7596 1 5
+failure adf8db9586d0065d236cb8bf50bf2e5f 1 6
+failure e1e1d3d40573127e9ee0480caf1283d6 1 7
+failure 853ae90f0351324bd73ea615e6487517 1 8
+failure 9e3669d19b675bd57058fd4664205d2a 1 9
+failure 685d590a89f352d10644dd985da2a9a1 1 10
+failure 03c7c0ace395d80182db07ae2c30f034 1 11
+failure 415290769594460e2e485922904f345d 1 12
+failure 9d5ed678fe57bcca610140957afab571 1 13
+failure f616c83f2f0f188265c7004d81d45723 1 14
+failure 1932a6849c6f575ca360266cc3f9a466 1 15
+failure 28d397e87306b8631f3ed80d858d35f0 1 16
+failure a03920e5994202f77b9c713941b5e055 1 17
+failure 5058f1af8388633f609cadb75a75dc9d 1 18
+failure 3beb9cf0eab8cbf2215990b4a6bdc271 1 19
+failure 9d5a273e0fb6aebca825009ee2363e2c 1 20
+failure 3389dae361af79b04c9c8e7057f60cc6 1 21
+failure ade7a0dcf4ddc0673ed48b70a4a340d6 1 22
+failure 167b86f21df376c96f10a0615b14200b 1 23
+failure da630c00d04be7f24cdaaacd01cf2e30 1 24
+failure 833344d5e1432da82ef02e1301477ce8 1 25
+failure d6e4a86e03b9b1f0bbf5d9582a4ae8ef 1 26
+failure 6067a176e5ed08f37f90537b9dbe76a5 1 27
+failure 0398b4090f24adbccc218219f5746b10 1 28
+failure 97775ba09eac63b5dcc98a94b2f779b9 1 29
+failure 1d948537445132ebf746bd33d5494b70 1 30
+failure 8666683506aacd900bbd5a74ac4edf68 1 31
+failure ffe51d3e7d8297237588704eeddc6ab2 1 32
+failure 685d590a89f352d10644dd985da2a9a1 1 33
+failure 8fec378760f1e7e708e9f57edafc28fc 1 34
+failure 97775ba09eac63b5dcc98a94b2f779b9 1 35
+failure b9ece18c950afbfa6b0fdbfa4ff731d3 1 36
+failure 02cb3522b35e58097e5fc3e9e093d9b6 1 37
+failure d527ca074d412d9d0ffc844872c4603c 1 38
+failure e4da3b7fbbce2345d7772b0674a318d5 1 39
+failure 7b774effe4a349c6dd82ad4f4f21d34c 1 40
+success 0cc175b9c0f1b6a831c399e269772661 1 41
+```
+
+```
+py -3 bb.py -bb 86f7e437faa5a7fce15d1ddcb9eaeaea377667b8 -ht sha1 -fs 1 -o "its the letter a.txt"
+
+SHA1 Hash Selected
+
+***************************
+# ByteBuilder: reconstructing files from a cryptographic hash
+# Author: davFaithid
+# Version 3
+***************************
+
+
+failure 1dcf0ec2351966fc2b0babee787f535a2683f130 1 0
+failure 2ace62c1befa19e3ea37dd52be9f6d508c5163e6 1 1
+failure b48f491783e98de10682f2d4455dfce5bdc3c233 1 2
+failure c4dd3c8cdd8d7c95603dd67f1cd873d5f9148b29 1 3
+failure c4dd3c8cdd8d7c95603dd67f1cd873d5f9148b29 1 4
+failure f195c020a28dfc5f2fb6af256b524ddcd93756ed 1 5
+failure 12bdd00fd4038756cbcf8ecdad1b0cd862603cd8 1 6
+failure 06576556d1ad802f247cad11ae748be47b70cd9c 1 7
+failure 05a79f06cf3f67f726dae68d18a2290f6c9a50c9 1 8
+failure 7a38d8cbd20d9932ba948efaa364bb62651d5ad4 1 9
+failure e67cb59b3168e12ea787b84372ab07560f8304d5 1 10
+failure a0f1490a20d0211c997b44bc357e1972deab8ae3 1 11
+failure 95cb0bfd2977c761298d9624e4b4d4c72a39974a 1 12
+failure ae4f281df5a5d0ff3cad6371f76d5c29b6d953ec 1 13
+failure 27f57cb359a8f86acf4af811c47a6380b4bb4209 1 14
+failure 73b74736664ad85828ce1be2e29fb4a68d24402b 1 15
+failure 08534f33c201a45017b502e90a800f1b708ebcb3 1 16
+failure 8768a53e1d4c182907306300f9ca90cfd8018383 1 17
+failure 3a52ce780950d4d969792a2559cd519d7ee8c727 1 18
+failure 241cbd6dfb6e53c43c73b62f9384359091dcbf56 1 19
+failure 132ccf0bbeffce4af8e88c1c38cb67d38432976f 1 20
+failure df58248c414f342c81e056b40bee12d17a08bf61 1 21
+failure c66be7210915f39e91456fc2eac9441012a0a3ea 1 22
+failure 0ad052dd9f32405521e43c6ebdc52f5a025493b2 1 23
+failure 45a65193e30784b0124f4fed659eb7e46552c2d0 1 24
+failure 7e15bb5c01e7dd56499e37c634cf791d3a519aee 1 25
+failure d3fe83b8d87ccda2bbca5e81ce3ab1a1400bfbe8 1 26
+failure 4df7138b341559a90fcf19aac099bfa6cc432cb2 1 27
+failure b830c46d24068069f0a43687826f355b21fdb941 1 28
+failure 090cbc46c3a13cd05fceb2fe55cccaab870d6795 1 29
+failure c4488af0c158e8c2832cb927cfb3ce534104cd1e 1 30
+failure 9842926af7ca0a8cca12604f945414f07b01e13d 1 31
+failure 5a8ca84c7d4d9b055f05c55b1f707f223979d387 1 32
+failure e67cb59b3168e12ea787b84372ab07560f8304d5 1 33
+failure ca632d28f91c1b8d638df71525fe22fd2473af10 1 34
+failure 090cbc46c3a13cd05fceb2fe55cccaab870d6795 1 35
+failure c2c53d66948214258a26ca9ca845d7ac0c17f8e7 1 36
+failure d8fc60ccdd8f555c1858b9f0820f263e3d2b58ec 1 37
+failure 121a9af889bd4ca2266be5a4f680d3bead8d02d6 1 38
+failure ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4 1 39
+failure 51e69892ab49df85c6230ccc57f8e1d1606caccc 1 40
+success 86f7e437faa5a7fce15d1ddcb9eaeaea377667b8 1 41
+```
+
+I have identified a bug where the program will just freeze for no reason when trying to generate excessive big files. Doesn't matter the hash, it just won't work. The only arbitrary file size I've tried that's resulted in this is ``8521449472``, although I suspect other multi-gigabyte files are the same.
+
+Definitely need to fix.
