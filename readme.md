@@ -112,4 +112,4 @@ success ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb
 
 - [ ] Build a GUI
 - [ ] Implement hashes other than SHA-256
-- [ ] Implement file header/footer writing to accelerate ByteBuilder generation of files of certain file types
+- [x] Implement file header/footer writing to accelerate ByteBuilder generation of files of certain file types
