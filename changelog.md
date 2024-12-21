@@ -131,3 +131,41 @@ After that I decided to combine all three into one script and just switch betwee
 Now that it's all in one file, ``-bb`` invokes ByteBuilder, ``-ss`` invokes SeedSprout, and ``-i`` inputs a container file. I can probably make this even simpler by making a GUI.
 
 Oh also now file size and file name are arguments called by flags, so don't forget the flags when using it. (``-fs`` filesize, ``-o`` filename)
+
+## File Header and Start Seed
+
+Obviously files generated using a file header cannot have usable seeds without that header. Currently I have not set up a way in the container file to handle headers or footers. I wonder if its possible to reverse engineer the seed for the file with the header without regenerating the entire file.
+
+The analyzing files feature (``-a``) returns the SHA-256 hash and file size of a given file. 
+
+I am planning on implementing a feature that allows users to analyze files, generate their ByteBuilder seed, and upload their hash, seed, and size to a public repo, effectively acting as a method of cloud storage for quick regeneration with SeedSprout. Additionally during ByteBuilder generation, all failed hashes and seeds will be uploaded in this mode as well. If ByteBuilder has access to an internet connection and the repo is available, then the program will check the database before beginning generation just in case it can invoke SeedSprout instead to save time.
+
+I am curious about when, if ever, a duplicate hash may arise, and how to handle that. Erroneous hashes might also be added to the repo if down the line SHA can be spoofed like CRC has been in the past, which will effectively render a given file useless for hash verification. Due to SHA and CRC functioning differently I doubt that this will happen if at all, but it is a possible worst case scenario concern. To combat duplicate hashes, the repo will report any duplicate hashes and their size so they can coexist in the repo but exist at different file sizes. I wonder what format I should use for this repo, CSV? Maybe JSON like ``{"ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb|1":"41"}`` or something.
+
+Also to be clear this feature is optional and needs to be turned on to upload these hashes to the database. I wonder what I should call the database. Hashiverse? Hashingbase? Hashipedia? I'll probably come up with something better when I actually set this up.
+
+So I figured about headers, a seed will produce the same bytes at any given size. So we'd just narrow down the seeds that produce those headers first before generating the rest of the file. That speeds up generation by a lot, and if I can have the two running concurrently then it can figure out the seeds that produce the hashes as the files are generated!
+
+The header implementation is actually really awesome, I had a file generating for three days and stopped it at seed 228603, with the header implemented the seed surpassed it in about three minutes. 
+
+Header mode also has a "no seed" option which iterates slow and cannot produce a usable seed for SeedSprout but guarantees that the generated file starts with the header for every "seed".
+
+```
+py -3 bb.py -bb ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb -fs 1 -o a -st 40
+
+***************************
+# ByteBuilder: reconstructing files from a cryptographic hash
+# Author: davFaithid
+# Version 3
+***************************
+
+
+failure 0bfe935e70c321c7ca3afc75ce0d0ca2f98b5422e008bb31c00c6d7f1f1c0ad6 1 40
+success ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb 1 41
+```
+
+## Actually making the commit
+
+Hello! It is currently December 21, 2024. I coded in the whole file header and start seed portions pretty much immediately after my last commit (10/12/24) and the last time I touched the code was October 19, 2024. But um yeah, forgot to commit any of that, my bad.
+
+Have not implemented the database thing yet
