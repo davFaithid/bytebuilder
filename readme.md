@@ -8,7 +8,7 @@ Similar to other bruteforce tools, this will take a long time to replicate a fil
 
 ## How to use
 
-Currently ByteBuilder is CLI only, but if you are command-line averse do plan on building a GUI for it. ByteBuilder also currently only features SHA-256 hash building, but other hashes will be implemented.
+Currently ByteBuilder is CLI only, but if you are command-line averse do plan on building a GUI for it. ByteBuilder also currently only features SHA-256, SHA-1, and MD5 hash building, but other hashes will be implemented.
 
 ByteBuilder is comprised of three modules: ByteBuilder, the main module which builds files from hashes, SeedSprout, which builds files from ByteBuilder seeds, and SeedSprouti, the module which builds from a container file. The i doesn't stand for anything I just wanted to reference the Nintendo DSi.
 
